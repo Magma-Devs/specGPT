@@ -1,0 +1,6 @@
+fastapi
+uvicorn
+grpcio
+grpcio-tools
+grpcio-reflection
+pydantic
