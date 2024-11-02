@@ -17,8 +17,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy the application code
 COPY . .
 
-# Expose the port FastAPI will run on
+# Expose the port for HTTP (since Nginx will handle HTTPS)
 EXPOSE 8000
 
-# Run the FastAPI application with Uvicorn
+# Run the FastAPI app with Uvicorn
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
