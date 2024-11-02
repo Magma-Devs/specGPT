@@ -1,8 +1,6 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
-
 from utils.grpc import run_grpcurl
-
 
 # Define the FastAPI app
 app = FastAPI()
@@ -11,12 +9,16 @@ app = FastAPI()
 class GrpcRequest(BaseModel):
     url: str
 
-@app.post("/query_grpc")
+class GrpcResponse(BaseModel):
+    description: str
+
+
+@app.post("/query_grpc", response_model=GrpcResponse)
 async def query_grpc(request: GrpcRequest):
     try:
         # Run grpcurl with the provided URL
         description = run_grpcurl(request.url)
-        return {"description": description}
+        return GrpcResponse(description=description)
 
     except RuntimeError as e:
         # Handle errors from grpcurl
